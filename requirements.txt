@@ -1,0 +1,2 @@
+upnpclient==1.0.3
+pyinstaller==5.13.0

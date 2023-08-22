@@ -1,0 +1,24 @@
+
+https://pypi.org/project/upnpclient/
+
+
+
+d.WANIPConn1.AddPortMapping(
+       NewRemoteHost='0.0.0.0',
+       NewExternalPort=13899,
+       NewProtocol='UDP',
+       NewInternalPort=13899,
+       NewInternalClient='192.168.1.6',
+       NewEnabled='1',
+       NewPortMappingDescription='Testing',
+       NewLeaseDuration=100)
+
+
+d.WANIPConn1.DeletePortMapping(NewRemoteHost='0.0.0.0',
+       NewExternalPort=13899,
+       NewProtocol='UDP',
+       NewInternalPort=13899,
+       NewInternalClient='192.168.1.6',
+       NewEnabled='1',
+       NewPortMappingDescription='Testing'
+       )     

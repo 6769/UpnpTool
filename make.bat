@@ -1,0 +1,4 @@
+
+
+pyinstaller --noconfirm .\main.spec
+
