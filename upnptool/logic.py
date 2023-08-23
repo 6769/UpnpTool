@@ -76,6 +76,6 @@ def protector(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            logger.error('%s %s', type(e).__name__, e)
+            logger.exception('%s %s', type(e).__name__, e)
 
     return decorated

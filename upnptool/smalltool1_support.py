@@ -69,24 +69,23 @@ def query_devices(*args):
 
 @logic.protector
 def add_portmap(*args):
-    if _debug:
-        print('smalltool1_support.add_portmap')
-        for arg in args:
-            print('    another arg:', arg)
-        sys.stdout.flush()
     d = _load_device()
     if not d:
         return
+    try:
+        r = d.WANIPConn1.AddPortMapping(
+            NewRemoteHost=_w1.remotehostvar.get(),
+            NewExternalPort=_w1.remoteportvar.get(),
+            NewProtocol=_w1.comboboxtype.get(),
+            NewInternalPort=_w1.localportvar.get(),
+            NewInternalClient=_w1.localhostvar.get(),
+            NewEnabled='1',
+            NewPortMappingDescription=_w1.descriptvar.get(),
+            NewLeaseDuration=_w1.timeoutvar.get())
+    except upnpclient.ValidationError as e:
+        logger.error('参数填写错误，无法创建端口映射')
+        return
 
-    r = d.WANIPConn1.AddPortMapping(
-        NewRemoteHost=_w1.remotehostvar.get(),
-        NewExternalPort=_w1.remoteportvar.get(),
-        NewProtocol=_w1.comboboxtype.get(),
-        NewInternalPort=_w1.localportvar.get(),
-        NewInternalClient=_w1.localhostvar.get(),
-        NewEnabled='1',
-        NewPortMappingDescription=_w1.descriptvar.get(),
-        NewLeaseDuration=_w1.timeoutvar.get())
     logger.debug('add port: %s', r)
     logger.info('端口映射添加成功')
 
@@ -95,11 +94,6 @@ def add_portmap(*args):
 
 @logic.protector
 def delete_portmap(*args):
-    if _debug:
-        print('smalltool1_support.delete_portmap')
-        for arg in args:
-            print('    another arg:', arg)
-        sys.stdout.flush()
     d = _load_device()
     if not d:
         return
@@ -144,11 +138,6 @@ Out[1]:
  'NewPortMappingDescription': 'MiniTP SDK',
  'NewLeaseDuration': 0}
     """
-    if _debug:
-        print('smalltool1_support.list_portmaps')
-        for arg in args:
-            print('    another arg:', arg)
-        sys.stdout.flush()
     d = _load_device()
     if not d:
         return
