@@ -271,7 +271,7 @@ class Toplevel1:
         self.TButton_deleteport.configure(takefocus="")
         self.TButton_deleteport.configure(text='''DeletePortMap''')
         self.TButton_deleteport.configure(compound='left')
-        self.Scrolledlistbox_portmaps = ScrolledListBox(self.TFrame3)
+        self.Scrolledlistbox_portmaps = ScrolledListBox(self.TFrame3, selectmode=MULTIPLE)
         self.Scrolledlistbox_portmaps.place(relx=0.066, rely=0.142
                 , relheight=0.69, relwidth=0.851)
         self.Scrolledlistbox_portmaps.configure(background="white")

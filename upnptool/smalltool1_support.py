@@ -97,13 +97,17 @@ def delete_portmap(*args):
     d = _load_device()
     if not d:
         return
-    cr = _w1.Scrolledlistbox_portmaps.curselection()
+    cr: tuple = _w1.Scrolledlistbox_portmaps.curselection()
     if not cr:
         logger.warning('端口未选中！')
         return
-    i = cr[0]
-    v = d.WANIPConn1.GetGenericPortMappingEntry(NewPortMappingIndex=i)
-    d.WANIPConn1.DeletePortMapping(**v)
+
+    logger.debug('delete selected ports index: %s', cr)
+    crl = list(cr)
+    crl.reverse()
+    for i in crl:
+        v = d.WANIPConn1.GetGenericPortMappingEntry(NewPortMappingIndex=i)
+        d.WANIPConn1.DeletePortMapping(**v)
 
     logger.info('refresh ports...')
     list_portmaps(*args)
@@ -151,7 +155,7 @@ Out[1]:
     _w1.Scrolledlistbox_portmaps.delete(0, END)
 
     try:
-        # 枚举更新端口映射列表
+        # 枚举更新端口映射列表, Entry start from 0 to last item.
         for i in range(2 ** 16):
             v = d.WANIPConn1.GetGenericPortMappingEntry(NewPortMappingIndex=i)
             line = '[{NewPortMappingDescription}] {NewProtocol}://{NewInternalClient}:{NewInternalPort} <-> {NewExternalPort}'.format_map(
